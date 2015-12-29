@@ -276,7 +276,7 @@ class Ui_Dialog(object):
         self.label_22.setText(QtGui.QApplication.translate("Dialog", "Post Combustión:", None, QtGui.QApplication.UnicodeUTF8))
         self.datoExtra_3.setText(QtGui.QApplication.translate("Dialog", "2500", None, QtGui.QApplication.UnicodeUTF8))
         self.selecDatoExtra_3.setItemText(0, QtGui.QApplication.translate("Dialog", "T5                              =", None, QtGui.QApplication.UnicodeUTF8))
-        self.selecDatoExtra_3.setItemText(1, QtGui.QApplication.translate("Dialog", "Q 1                            =", None, QtGui.QApplication.UnicodeUTF8))
+        self.selecDatoExtra_3.setItemText(1, QtGui.QApplication.translate("Dialog", "Q1 [KJ/kg]                            =", None, QtGui.QApplication.UnicodeUTF8))
         self.formula_comboBox.setItemText(0, QtGui.QApplication.translate("Dialog", "Otra", None, QtGui.QApplication.UnicodeUTF8))
         self.Altura_Button.setText(QtGui.QApplication.translate("Dialog", "Selecionar Altura", None, QtGui.QApplication.UnicodeUTF8))
         self.label_HVI.setText(QtGui.QApplication.translate("Dialog", "HVI [KJ/kg]=", None, QtGui.QApplication.UnicodeUTF8))

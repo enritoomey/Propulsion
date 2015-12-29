@@ -89,29 +89,29 @@ def CicloJouleBraytonPostcombustion(p1,t1,tb,theta1,variable1,dato1,variable2,da
         theta = r_comp**((gamma_aire-1)/gamma_aire)
 
 
-    if variable1 == 'theta':
+    if variable1 == 'Theta':
         theta = dato1
         if theta < 1:
             raise MayorAUnoError('theta')
 
-    if variable2 == 't3':
+    if variable2 == 'Temp. max':
         t3 = dato2
         Q = cp*(t3-theta*t1)
         if Q<0:
             raise TemperaturaIncompatibleError('t3',theta*t1)
 
     if variable2 == 'Q':
-        Q = dato2
+        Q = dato2*1000
         t3 = theta*t1+Q/cp
 
-    if variable3 == 't5':
+    if variable3 == 'T5':
         t5 = dato3
         Q1 = cp*(t5-t3/theta1)
         if Q1<0:
             raise TemperaturaIncompatibleError('t5',t3/theta1)
 
     if variable3 == 'Q1':
-        Q1 = dato3
+        Q1 = dato3*1000
         t5 = t3/theta1+Q1/cp
 
     #punto 2
@@ -129,7 +129,7 @@ def CicloJouleBraytonPostcombustion(p1,t1,tb,theta1,variable1,dato1,variable2,da
 
     #punto 4
     t4 = t3/theta1
-    p4 = p3 * theta1**(gamma_aire-(1-gamma_aire))
+    p4 = p3 * theta1**(gamma_aire/(1-gamma_aire))
     v4 = t4*r_aire/p4
     rho4 = 1/v4
     s4 = s3
