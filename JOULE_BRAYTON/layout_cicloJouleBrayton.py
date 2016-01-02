@@ -71,151 +71,197 @@ class Ui_Dialog(object):
         self.theta1 = QtGui.QLineEdit(self.DatosEntrada)
         self.theta1.setGeometry(QtCore.QRect(170, 381, 91, 20))
         self.theta1.setObjectName("theta1")
+
         self.label_10 = QtGui.QLabel(self.DatosEntrada)
         self.label_10.setGeometry(QtCore.QRect(26, 225, 41, 21))
         self.label_10.setObjectName("label_10")
+
         self.presion1 = QtGui.QLineEdit(self.DatosEntrada)
         self.presion1.setGeometry(QtCore.QRect(96, 205, 61, 20))
         self.presion1.setObjectName("presion1")
+
         self.selecDatoExtra_1 = QtGui.QComboBox(self.DatosEntrada)
         self.selecDatoExtra_1.setGeometry(QtCore.QRect(20, 291, 141, 22))
         self.selecDatoExtra_1.setObjectName("selecDatoExtra_1")
         self.selecDatoExtra_1.addItem("")
         self.selecDatoExtra_1.addItem("")
+
         self.label_11 = QtGui.QLabel(self.DatosEntrada)
         self.label_11.setGeometry(QtCore.QRect(20, 271, 131, 21))
         self.label_11.setObjectName("label_11")
+
         self.datoExtra_1 = QtGui.QLineEdit(self.DatosEntrada)
         self.datoExtra_1.setGeometry(QtCore.QRect(170, 291, 91, 20))
         self.datoExtra_1.setObjectName("datoExtra_1")
+
         self.temperatura1 = QtGui.QLineEdit(self.DatosEntrada)
         self.temperatura1.setGeometry(QtCore.QRect(96, 225, 61, 20))
         self.temperatura1.setObjectName("temperatura1")
+
         self.label_13 = QtGui.QLabel(self.DatosEntrada)
         self.label_13.setGeometry(QtCore.QRect(20, 381, 141, 16))
         self.label_13.setObjectName("label_13")
+
         self.label_9 = QtGui.QLabel(self.DatosEntrada)
         self.label_9.setGeometry(QtCore.QRect(26, 205, 51, 21))
         self.label_9.setObjectName("label_9")
+
         self.relacionMezcla = QtGui.QDoubleSpinBox(self.DatosEntrada)
         self.relacionMezcla.setGeometry(QtCore.QRect(146, 107, 62, 22))
+        self.relacionMezcla.setDecimals(3)
+        self.relacionMezcla.setMinimum(0.001)
         self.relacionMezcla.setMaximum(999999999.0)
-        self.relacionMezcla.setSingleStep(0.01)
+        self.relacionMezcla.setSingleStep(0.05)
         self.relacionMezcla.setProperty("value", 1.0)
         self.relacionMezcla.setObjectName("relacionMezcla")
+
         self.label_12 = QtGui.QLabel(self.DatosEntrada)
         self.label_12.setGeometry(QtCore.QRect(26, 107, 131, 21))
         self.label_12.setObjectName("label_12")
+
         self.calorQ = QtGui.QLineEdit(self.DatosEntrada)
         self.calorQ.setGeometry(QtCore.QRect(177, 161, 91, 20))
         self.calorQ.setObjectName("calorQ")
+
         self.calcular = QtGui.QPushButton(self.DatosEntrada)
         self.calcular.setGeometry(QtCore.QRect(90, 431, 101, 23))
         self.calcular.setObjectName("calcular")
+
         self.temperatura_base = QtGui.QLineEdit(self.DatosEntrada)
         self.temperatura_base.setGeometry(QtCore.QRect(96, 245, 61, 20))
         self.temperatura_base.setObjectName("temperatura_base")
+
         self.label_temperaturabase = QtGui.QLabel(self.DatosEntrada)
         self.label_temperaturabase.setGeometry(QtCore.QRect(26, 245, 51, 21))
         self.label_temperaturabase.setObjectName("label_temperaturabase")
+
         self.selecDatoExtra_2 = QtGui.QComboBox(self.DatosEntrada)
         self.selecDatoExtra_2.setGeometry(QtCore.QRect(20, 321, 141, 22))
         self.selecDatoExtra_2.setObjectName("selecDatoExtra_2")
         self.selecDatoExtra_2.addItem("")
         self.selecDatoExtra_2.addItem("")
+
         self.datoExtra_2 = QtGui.QLineEdit(self.DatosEntrada)
         self.datoExtra_2.setGeometry(QtCore.QRect(170, 321, 91, 20))
         self.datoExtra_2.setObjectName("datoExtra_2")
+
         self.label_22 = QtGui.QLabel(self.DatosEntrada)
         self.label_22.setGeometry(QtCore.QRect(20, 354, 131, 21))
         self.label_22.setObjectName("label_22")
+
         self.PostCombustion = QtGui.QCheckBox(self.DatosEntrada)
         self.PostCombustion.setGeometry(QtCore.QRect(114, 357, 70, 17))
         self.PostCombustion.setText("")
         self.PostCombustion.setObjectName("PostCombustion")
+
         self.datoExtra_3 = QtGui.QLineEdit(self.DatosEntrada)
         self.datoExtra_3.setGeometry(QtCore.QRect(170, 401, 91, 20))
         self.datoExtra_3.setObjectName("datoExtra_3")
+
         self.selecDatoExtra_3 = QtGui.QComboBox(self.DatosEntrada)
         self.selecDatoExtra_3.setGeometry(QtCore.QRect(20, 401, 141, 22))
         self.selecDatoExtra_3.setObjectName("selecDatoExtra_3")
         self.selecDatoExtra_3.addItem("")
         self.selecDatoExtra_3.addItem("")
+
         self.formula_comboBox = QtGui.QComboBox(self.DatosEntrada)
         self.formula_comboBox.setGeometry(QtCore.QRect(120, 40, 151, 22))
         self.formula_comboBox.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.formula_comboBox.setObjectName("formula_comboBox")
         self.formula_comboBox.addItem("")
+
         self.Altura_Button = QtGui.QPushButton(self.DatosEntrada)
         self.Altura_Button.setGeometry(QtCore.QRect(176, 215, 91, 41))
         self.Altura_Button.setObjectName("Altura_Button")
+
         self.HVS_lineEdit = QtGui.QLineEdit(self.DatosEntrada)
         self.HVS_lineEdit.setGeometry(QtCore.QRect(96, 135, 51, 20))
         self.HVS_lineEdit.setObjectName("HVS_lineEdit")
+
         self.HVI_lineEdit = QtGui.QLineEdit(self.DatosEntrada)
         self.HVI_lineEdit.setGeometry(QtCore.QRect(223, 134, 51, 20))
         self.HVI_lineEdit.setObjectName("HVI_lineEdit")
+
         self.label_HVI = QtGui.QLabel(self.DatosEntrada)
         self.label_HVI.setGeometry(QtCore.QRect(160, 134, 71, 21))
         self.label_HVI.setObjectName("label_HVI")
         self.label_HVS = QtGui.QLabel(self.DatosEntrada)
         self.label_HVS.setGeometry(QtCore.QRect(28, 133, 71, 21))
         self.label_HVS.setObjectName("label_HVS")
+
         self.DatosSalida = QtGui.QFrame(Dialog)
         self.DatosSalida.setGeometry(QtCore.QRect(320, 340, 361, 111))
         self.DatosSalida.setFrameShape(QtGui.QFrame.StyledPanel)
         self.DatosSalida.setFrameShadow(QtGui.QFrame.Raised)
         self.DatosSalida.setObjectName("DatosSalida")
+
         self.label_17 = QtGui.QLabel(self.DatosSalida)
         self.label_17.setGeometry(QtCore.QRect(30, 40, 141, 21))
         self.label_17.setObjectName("label_17")
+
         self.label_18 = QtGui.QLabel(self.DatosSalida)
         self.label_18.setGeometry(QtCore.QRect(180, 77, 141, 21))
         self.label_18.setObjectName("label_18")
+
         self.label_19 = QtGui.QLabel(self.DatosSalida)
         self.label_19.setGeometry(QtCore.QRect(30, 60, 141, 21))
         self.label_19.setObjectName("label_19")
+
         self.label_20 = QtGui.QLabel(self.DatosSalida)
         self.label_20.setGeometry(QtCore.QRect(30, 80, 141, 21))
         self.label_20.setObjectName("label_20")
+
         self.label_21 = QtGui.QLabel(self.DatosSalida)
         self.label_21.setGeometry(QtCore.QRect(180, 57, 141, 21))
         self.label_21.setObjectName("label_21")
+
         self.calor2 = QtGui.QLineEdit(self.DatosSalida)
         self.calor2.setGeometry(QtCore.QRect(110, 40, 61, 20))
         self.calor2.setObjectName("calor2")
+
         self.label_14 = QtGui.QLabel(self.DatosSalida)
         self.label_14.setGeometry(QtCore.QRect(20, 10, 151, 21))
         self.label_14.setTextFormat(QtCore.Qt.RichText)
         self.label_14.setObjectName("label_14")
+
         self.calorU = QtGui.QLineEdit(self.DatosSalida)
         self.calorU.setGeometry(QtCore.QRect(110, 60, 61, 20))
         self.calorU.setObjectName("calorU")
+
         self.trabajoW = QtGui.QLineEdit(self.DatosSalida)
         self.trabajoW.setGeometry(QtCore.QRect(110, 80, 61, 20))
         self.trabajoW.setObjectName("trabajoW")
+
         self.presionMedia = QtGui.QLineEdit(self.DatosSalida)
         self.presionMedia.setGeometry(QtCore.QRect(280, 57, 71, 20))
         self.presionMedia.setObjectName("presionMedia")
+
         self.rendimiento = QtGui.QLineEdit(self.DatosSalida)
         self.rendimiento.setGeometry(QtCore.QRect(310, 77, 41, 20))
         self.rendimiento.setObjectName("rendimiento")
+
         self.matrixButton = QtGui.QPushButton(self.DatosSalida)
         self.matrixButton.setGeometry(QtCore.QRect(200, 10, 131, 31))
         self.matrixButton.setObjectName("matrixButton")
+
         self.PlotArea = QtGui.QTabWidget(Dialog)
         self.PlotArea.setGeometry(QtCore.QRect(310, 10, 381, 311))
         self.PlotArea.setMovable(False)
         self.PlotArea.setObjectName("PlotArea")
+
         self.tab = QtGui.QWidget()
         self.tab.setObjectName("tab")
+
         self.PlotArea.addTab(self.tab, "")
+
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName("tab_2")
+
         self.PlotArea.addTab(self.tab_2, "")
 
         self.retranslateUi(Dialog)
         self.PlotArea.setCurrentIndex(0)
+
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         Dialog.setTabOrder(self.formulaC, self.formulaH)
         Dialog.setTabOrder(self.formulaH, self.formulaO)

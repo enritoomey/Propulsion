@@ -9,7 +9,7 @@ class MayorAUnoError(Exception):
          return repr(self.variableName)
 
 class TemperaturaIncompatibleError(Exception):
-     def __init__(self, variableName,editLine,value):
+     def __init__(self, variableName,value):
         self.variableName = variableName
         self.value = value
 

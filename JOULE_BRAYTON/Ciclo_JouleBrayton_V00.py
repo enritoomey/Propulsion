@@ -20,13 +20,13 @@ def CicloJouleBraytonSimple(p1,t1,tb,variable1,dato1,variable2,dato2):
 
     if variable1 == 'Relacion de comp.':
         r_comp = dato1
-        if r_comp < 1:
+        if r_comp <= 1:
             raise MayorAUnoError('r_comp')
         theta = r_comp**((gamma_aire-1)/gamma_aire)
 
     if variable1 == 'Theta':
         theta = dato1
-        if theta < 1:
+        if theta <= 1:
             raise MayorAUnoError('theta')
 
     if variable2 == 'Temp. max':
@@ -77,21 +77,25 @@ def CicloJouleBraytonSimple(p1,t1,tb,variable1,dato1,variable2,dato2):
 
 def CicloJouleBraytonPostcombustion(p1,t1,tb,theta1,variable1,dato1,variable2,dato2,variable3,dato3):
 
+
+    if theta1 <= 1:
+        raise MayorAUnoError('theta1')
     #punto 1
-    v1 = r_aire*t1/p1;
-    rho1=1/v1;
-    s1 = r_aire/(gamma_aire-1)*log(t1/tb);
+    v1 = r_aire*t1/p1
+    rho1=1/v1
+    s1 = r_aire/(gamma_aire-1)*log(t1/tb)
 
     if variable1 == 'Relacion de comp.':
         r_comp = dato1
-        if r_comp < 1:
+        if r_comp <= 1:
             raise MayorAUnoError('r_comp')
         theta = r_comp**((gamma_aire-1)/gamma_aire)
 
 
+
     if variable1 == 'Theta':
         theta = dato1
-        if theta < 1:
+        if theta <= 1:
             raise MayorAUnoError('theta')
 
     if variable2 == 'Temp. max':
