@@ -46,3 +46,4 @@ Temporary Items
 # User selected files
 # ======================
 .idea/*
+*.pyc
