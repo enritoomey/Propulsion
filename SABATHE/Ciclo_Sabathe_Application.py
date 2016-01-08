@@ -4,10 +4,12 @@ Created on Wed Oct 08 20:47:21 2014
 
 @author: Enriquito
 """
+import sys
+
 from PySide.QtCore import *
 from PySide.QtGui import *
-import sys
 import matplotlib
+
 matplotlib.use('Qt4Agg')
 # Hay que agregarle la siguiente linea para que matplotlib use pyside. De esta forma los objetos FigureCanvas y Figure
 # compatibles con los Qwidget creados por Pyside!
@@ -15,6 +17,7 @@ matplotlib.rcParams['backend.qt4']='PySide'
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
+from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompatibleError, AlphaIncompatibleError
 # En el metodo "CicloSabatheGUI" es el obtenido por pyside al procesar el archivo ".ui"
 import CicloSabatheGUI as CicloSabatheGUI
 # Importamos los modulos que tienen las funciones para el cálculo de los ciclos. La primera tiene la funció para el
@@ -93,10 +96,10 @@ class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
 
     def actualizarFormula(self):
         try:
-            c = self.validacion(self.formulaC,'int')
-            h = self.validacion(self.formulaH,'int')
-            o = self.validacion(self.formulaO,'int')
-            s = self.validacion(self.formulaS,'float')
+            c = self.lecturadatos(self.formulaC, 'int')
+            h = self.lecturadatos(self.formulaH, 'int')
+            o = self.lecturadatos(self.formulaO, 'int')
+            s = self.lecturadatos(self.formulaS, 'float')
         except: pass
         else:
             # si la formula ingresada coincide con alguna formula del comboBox
@@ -127,17 +130,17 @@ class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
     # Exception para capturar los valores de entrada negativos.
     class NumeroNegativo(Exception): pass
 
-    def validacion(self,lineedit,type):
+    def lecturadatos(self, lineedit, type):
         try:
             aux = 0
             if type == 'int':
                 aux = int(lineedit.text())
             if type == 'float':
                 aux = float(lineedit.text())
-            if aux < 0 :
-                raise self.NumeroNegativo,('Los valores de entrada no pueden ser negativos')
-            else: return aux
-        except (TypeError,ValueError,self.NumeroNegativo),e:
+            if aux < 0:
+                raise NumeroNegativoError
+            return aux
+        except (TypeError, ValueError, NumeroNegativoError):
             QMessageBox.warning(self,"Error en los datos de entrada! ","Vuelva a ingresar los datos")
             lineedit.selectAll()
             lineedit.setFocus()
@@ -147,15 +150,45 @@ class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         Q = self.Q
         # Lectura de los datos de entrada con la función verificacion
         try:
-            p1 = self.validacion(self.presion1,'float')
-            t1 = self.validacion(self.temperatura1,'float')
+            p1 = self.lecturadatos(self.presion1, 'float')
+            t1 = self.lecturadatos(self.temperatura1, 'float')
             variableExtra1 = self.selecDatoExtra1.currentText().split("  ")[0]
-            datoExtra1 = self.validacion(self.datoExtra1 ,'float')
+            datoExtra1 = self.lecturadatos(self.datoExtra1, 'float')
             variableExtra2 = self.selecDatoExtra2.currentText().split("  ")[0]
-            datoExtra2 = self.validacion(self.datoExtra2,'float')
-        except : pass
+            datoExtra2 = self.lecturadatos(self.datoExtra2, 'float')
+            self.puntos, resultados = ciclo_sabathe.CicloSabathe(p1, t1, Q * 1000, variableExtra1, datoExtra1,
+                                                                 variableExtra2, datoExtra2)
+
+        except MayorAUnoError as e:
+            QMessageBox.warning(self, "Error en los datos de entrada! ",
+                                "La variable " + str(e.variableName) + " no puede ser menor a 1")
+            if e.variableName == 'r_comp':
+                self.datoExtra1.selectAll()
+                self.datoExtra1.setFocus()
+            elif e.variableName == 'Alpha':
+                self.datoExtra2.selectAll()
+                self.datoExtra2.setFocus()
+            else:
+                pass
+
+        except TemperaturaIncompatibleError as e:
+            QMessageBox.warning(self, "Error en los datos de entrada! ",
+                                "La temperatura " + str(e.variableName) + " no puede ser menor a la " + \
+                                "temepratura del estado anterior (" + str(e.value) + " K)")
+            self.datoExtra1.selectAll()
+            self.datoExtra1.setFocus()
+
+        except AlphaIncompatibleError as e:
+            QMessageBox.warning(self, "Error en los datos de entrada!", "Alpha no puede ser mayor a " + str(e.value1) + \
+                                ", ni menor a = " + str(e.value2))
+            self.datoExtra2.selectAll()
+            self.datoExtra2.setFocus()
+
+
+
+
+
         else:
-            self.puntos, resultados = ciclo_sabathe.CicloSabathe(p1,t1,Q*1000,variableExtra1,datoExtra1,variableExtra2,datoExtra2)
             self.plotCiclo(self.puntos)
 
             self.calor2.setText(str(resultados[0]))

@@ -5,6 +5,9 @@ Created on Wed Sep 03 19:33:54 2014
 @author: Enriquito
 """
 import numpy as np
+
+from excepciones import MayorAUnoError, TemperaturaIncompatibleError, AlphaIncompatibleError
+
 R_aire = 287 #J/kg/K
 gamma_aire = 1.4
 S_ref = 1
@@ -18,17 +21,19 @@ def CicloSabathe(p1,t1,Q,variableExtra1,valor1,variableExtra2,valor2):
     #punto 2
     if variableExtra1=='Relacion de comp.':
         r_comp=valor1
+        if r_comp <= 1:
+            raise MayorAUnoError('r_comp')
         v2 = v1/float(r_comp)
         p2 = p1*r_comp**gamma_aire
         t2 = p2*v2/R_aire
-        print("t2 = ",t2)
 
     if variableExtra1 == 'T2':
         t2 = valor1
+        if t1 >= t2:
+            raise TemperaturaIncompatibleError('T2', t1)
         p2 = p1*(t1/t2)**(gamma_aire/(1-gamma_aire))
         v2 = t2*R_aire/p2
         r_comp = v1/v2
-        print("r_comp = ",r_comp)
 
     rho2 = 1/v2
     S2 = S1
@@ -37,24 +42,28 @@ def CicloSabathe(p1,t1,Q,variableExtra1,valor1,variableExtra2,valor2):
     # CASO 1
     if variableExtra2=='Alpha':
         alpha = valor2
+        if alpha <= 1:
+            raise MayorAUnoError('Alpha')
         p3 = alpha*p2
         v3 = v2; rho3 = rho2
         t3 = p3*v3/R_aire
         S3 = S2+gamma_aire*R_aire/(gamma_aire-1)*np.log(t3/t2)-R_aire*np.log(p3/p2)
-        Qp = R_aire/(gamma_aire-1)*(t3-t2);
+        Qp = R_aire / (gamma_aire - 1) * (t3 - t2)
         if Qp>Q:
             alpha_max = ((gamma_aire-1)*Q+t2*R_aire)/p2/v2
-            print("Error, alpha no puede ser mayor a: "+str(alpha_max))
-            raise
+            alpha_min = (t3 * R_aire + (Q - Qp) * (gamma_aire - 1) / gamma_aire) / p2 / v1
+            raise AlphaIncompatibleError(alpha_max, alpha_min)
         #punto 3a
         Qv  =Q-Qp
         t3a =t3+Qv/R_aire*(gamma_aire-1)/gamma_aire
         p3a = p3
         v3a =R_aire*t3a/p3a
         S3a = S3+gamma_aire*R_aire/(gamma_aire-1)*np.log(t3a/t3)-R_aire*np.log(p3a/p3)
+        # Esta condicion no se deberia cumplir si alpha no supera alpha_max
         if v3a>v1:
-            print("Error, la combinación de relación de compresion"+\
-            "calor aportado y alpha es incompatible: v3a="+str(v3a)+" > "+str(v1))
+            alpha_max = ((gamma_aire - 1) * Q + t2 * R_aire) / p2 / v2
+            alpha_min = (t3 * R_aire + (Q - Qp) * (gamma_aire - 1) / gamma_aire) / p2 / v1
+            raise AlphaIncompatibleError(alpha_max, alpha_min)
         rho3a = 1.0/v3a
 
     # CASO 2

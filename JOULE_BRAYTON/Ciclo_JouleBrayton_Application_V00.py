@@ -4,10 +4,12 @@ Created on Wed Oct 08 20:47:21 2014
 
 @author: Enriquito
 """
+import sys  # no estoy seguro para que lo uso
+
 from PySide.QtCore import *
 from PySide.QtGui import *  # importo todas las funciones de pyside
-import sys  # no estoy seguro para que lo uso
 import matplotlib  #Para los graficos
+
 matplotlib.use('Qt4Agg')
 matplotlib.rcParams['backend.qt4']='PySide'
 # Estas lineas son un poco misteriosas, pero son las que me permite
@@ -52,9 +54,12 @@ class MainDialog(QDialog, layout_cicloJouleBrayton.Ui_Dialog):
         self.axes1.set_ylabel('p')
         self.axes1.set_xlabel('v')
         self.axes1.set_title('Ciclo Joule-Brayton')
+        self.axes1.ticklabel_format(style="sci", scilimits=(0, 0), axis="both")  # , useOffset=True,useLocale=True)
+        self.axes1.tick_params(axis="both", direction='in', length=6, width=2, labelsize="medium")
         self.fig2 = Figure(figsize=(4.8,3.4),dpi=72, facecolor=(1,1,1), edgecolor=(0,0,0))
         self.axes2 = self.fig2.add_subplot(111)
         self.axes2.set_ylabel('T')
+        self.axes2.ticklabel_format(style='sci', scilimits=(0, 0), axis="both")
         self.axes2.set_xlabel('S')
         self.axes2.set_title('Ciclo Joule-Brayton')
         # generate the canvas to display the plot
