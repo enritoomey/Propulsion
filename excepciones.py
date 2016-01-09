@@ -14,7 +14,8 @@ class TemperaturaIncompatibleError(Exception):
         self.value = value
 
 
-class AlphaIncompatibleError(Exception):
-    def __init__(self, value1, value2):
+class Var2IncompatibleError(Exception):
+    def __init__(self, varname, value1, value2):
+        self.varname = varname
         self.value1 = value1
         self.value2 = value2

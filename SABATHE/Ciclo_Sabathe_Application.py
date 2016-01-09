@@ -6,9 +6,9 @@ Created on Wed Oct 08 20:47:21 2014
 """
 import sys
 
+import matplotlib
 from PySide.QtCore import *
 from PySide.QtGui import *
-import matplotlib
 
 matplotlib.use('Qt4Agg')
 # Hay que agregarle la siguiente linea para que matplotlib use pyside. De esta forma los objetos FigureCanvas y Figure
@@ -17,7 +17,7 @@ matplotlib.rcParams['backend.qt4']='PySide'
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
-from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompatibleError, AlphaIncompatibleError
+from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompatibleError, Var2IncompatibleError
 # En el metodo "CicloSabatheGUI" es el obtenido por pyside al procesar el archivo ".ui"
 import CicloSabatheGUI as CicloSabatheGUI
 # Importamos los modulos que tienen las funciones para el cálculo de los ciclos. La primera tiene la funció para el
@@ -178,8 +178,9 @@ class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
             self.datoExtra1.selectAll()
             self.datoExtra1.setFocus()
 
-        except AlphaIncompatibleError as e:
-            QMessageBox.warning(self, "Error en los datos de entrada!", "Alpha no puede ser mayor a " + str(e.value1) + \
+        except Var2IncompatibleError as e:
+            QMessageBox.warning(self, "Error en los datos de entrada!",
+                                e.varname + " no puede ser mayor a " + str(e.value1) + \
                                 ", ni menor a = " + str(e.value2))
             self.datoExtra2.selectAll()
             self.datoExtra2.setFocus()
