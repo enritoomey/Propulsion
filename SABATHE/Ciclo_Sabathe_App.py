@@ -4,8 +4,6 @@ Created on Wed Oct 08 20:47:21 2014
 
 @author: Enriquito
 """
-import sys
-
 import matplotlib
 from PySide.QtCore import *
 from PySide.QtGui import *
@@ -26,12 +24,15 @@ import CicloSabatheGUI as CicloSabatheGUI
 import PoderCalorifico
 import ciclo_sabathe_V04 as ciclo_sabathe
 import GUI_atmosfera_estandar
+from MatrixClass import MatrixDialog
+
 __appName__ = 'Ciclo Sabathe'
 
-class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
+
+class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
 
     def __init__(self, parent=None):
-        super(MainDialog,self).__init__(parent)
+        super(SabatheDialog, self).__init__(parent)
         self.setWindowTitle(__appName__)
         self.setupUi(self)
         self.Q = []
@@ -233,24 +234,4 @@ class MainDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
     def displayMatrix(self):
         matriz = MatrixDialog(self.puntos)
         matriz.exec_()
-
-class MatrixDialog(QDialog):
-    def __init__(self,ValoresIniciales,parent = None):
-        super(MatrixDialog,self).__init__(parent)
-        self.setGeometry(QRect(100, 100,600,200))
-        Matrix = QTableWidget(len(ValoresIniciales[0]),len(ValoresIniciales),self)
-        Matrix.setGeometry(QRect(0, 0,600,200))
-        Matrix.setHorizontalHeaderLabels(['1','2','3','4','5','6'])
-        Matrix.setVerticalHeaderLabels(['P [Pa]','T [K]','rho [kg/m3]','V [m3/kg]','S [J/kgK]'])
-        for i in range(len(ValoresIniciales)):
-            for j in range(len(ValoresIniciales[i])):
-                Matrix.setItem(j,i,QTableWidgetItem(str(ValoresIniciales[i][j])))
-
-app = QApplication(sys.argv)
-form = MainDialog()
-form.show()
-app.exec_()
-
-
-
 
