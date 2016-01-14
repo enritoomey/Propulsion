@@ -3,14 +3,14 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *  # importo todas las funciones de pyside
 
-import CiclosApp_Layout
+import layout_CiclosApp
 from Ciclo_JouleBrayton_App import JouleBraytonDialog
 from Ciclo_Sabathe_App import SabatheDialog
 
 __appName__ = 'Ciclos App'
 
 
-class CiclosAppDialog(QDialog, CiclosApp_Layout.Ui_Dialog):
+class CiclosAppDialog(QDialog, layout_CiclosApp.Ui_Dialog):
     def __init__(self, parent=None):
         super(CiclosAppDialog, self).__init__(parent)
         self.setWindowTitle(__appName__)

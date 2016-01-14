@@ -17,12 +17,12 @@ from matplotlib.figure import Figure
 import numpy as np
 from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompatibleError, Var2IncompatibleError
 # En el metodo "CicloSabatheGUI" es el obtenido por pyside al procesar el archivo ".ui"
-import CicloSabatheGUI as CicloSabatheGUI
+import layout_CicloSabathe as CicloSabatheGUI
 # Importamos los modulos que tienen las funciones para el cálculo de los ciclos. La primera tiene la funció para el
 # cálculo de calor especifico asociado a la formula quimica del combustible, y el segundo el programa que resuelve el
 # ciclo.
 import PoderCalorifico
-import ciclo_sabathe_V04 as ciclo_sabathe
+import ciclo_sabathe_calculos as ciclo_sabathe
 import GUI_atmosfera_estandar
 from MatrixClass import MatrixDialog
 
