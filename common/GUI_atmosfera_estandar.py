@@ -6,7 +6,7 @@ from PySide.QtGui import *
 
 class MainDialog(QDialog, layout.Ui_Dialog):
 
-    def __init__(self,presion,temperatura,parent=None):
+    def __init__(self, presion=101325.0, temperatura=293.0, parent=None):
         super(MainDialog,self).__init__(parent)
         self.setupUi(self)
         self.atmosfera = {'h':[],'deltaT':[],'p':[],'t':[],'rho':[],'mu':[],'Vson':[],'calculo':[]}

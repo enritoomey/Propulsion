@@ -35,7 +35,7 @@ m = rho1*A*ca
 # velocidad tangencial de salida U
 U = np.pi*D*omega
 
-# T03- Todo el trabajo realizado por el rotor
+# T03- To do el trabajo realizado por el rotor
 #       que es igual al cambio de momento angular del
 #       fluido, se transforma en aumento de T0.
 
