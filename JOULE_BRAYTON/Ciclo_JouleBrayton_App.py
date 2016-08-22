@@ -19,10 +19,10 @@ from matplotlib.figure import Figure
 from excepciones import NumeroNegativoError,MayorAUnoError,TemperaturaIncompatibleError
 import numpy as np # Para las cuentas
 import Ciclo_JouleBrayton_V00 as Ciclo_JouleBrayton # contiene la funcion que hace las cuentas
-import PoderCalorifico # Continene la funcion que calcula el poder calorifico
+import common.PoderCalorifico as PoderCalorifico# Continene la funcion que calcula el poder calorifico
 import layout_cicloJouleBrayton # importo las clases creadas con Qt y pyside
-import GUI_atmosfera_estandar
-from MatrixClass import MatrixDialog
+import common.GUI_atmosfera_estandar as GUI_atmosfera_estandar
+from common.MatrixClass import MatrixDialog
 __appName__ = 'Ciclo Joule-Brayton'
 
 # Creo la clase principal, llamada ""Main Dialog"

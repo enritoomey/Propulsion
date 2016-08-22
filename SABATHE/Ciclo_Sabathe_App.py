@@ -21,10 +21,10 @@ import layout_CicloSabathe as CicloSabatheGUI
 # Importamos los modulos que tienen las funciones para el cálculo de los ciclos. La primera tiene la funció para el
 # cálculo de calor especifico asociado a la formula quimica del combustible, y el segundo el programa que resuelve el
 # ciclo.
-import PoderCalorifico
+import common.PoderCalorifico as PoderCalorifico
 import ciclo_sabathe_calculos as ciclo_sabathe
-import GUI_atmosfera_estandar
-from MatrixClass import MatrixDialog
+import common.GUI_atmosfera_estandar as GUI_atmosfera_estandar
+from common.MatrixClass import MatrixDialog
 
 __appName__ = 'Ciclo Sabathe'
 

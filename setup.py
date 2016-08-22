@@ -1,6 +1,12 @@
 # Used successfully in Python2.5 with matplotlib 0.91.2 and PyQt4 (and Qt 4.3.3)
 from distutils.core import setup
 import py2exe
+import os
+# import sys
+#
+# sys.path.append('./JOULE_BRAYTON')
+# sys.path.append('./SABATHE')
+# sys.path.append('./common')
 
 # We need to import the glob module to search for all files.
 import glob
@@ -8,7 +14,18 @@ import glob
 # We need to exclude matplotlib backends not being used by this executable.  You may find
 # that you need different excludes to create a working executable with your chosen backend.
 # We also need to include include various numerix libraries that the other functions call.
+def include_subdirectory(lista, directory=os.getcwd()):
+    for files in os.listdir(directory):
+        if os.path.isdir(files):
+            include_subdirectory(lista, "\\".join([directory, files]))
+        elif files.split(".")[-1] == 'py':
+            lista.append("\\".join([directory, files]))
 
+
+my_includes = []
+include_subdirectory(my_includes, directory=os.getcwd()+"\common")
+include_subdirectory(my_includes, directory=os.getcwd()+"\JOULE_BRAYTON")
+include_subdirectory(my_includes, directory=os.getcwd()+"\SABATHE")
 opts = {
     'py2exe': {"includes": ["matplotlib.backends",  "matplotlib.backends.backend_qt4agg",
                             "matplotlib.figure", "pylab", "numpy", "matplotlib.backends.backend_tkagg"],
