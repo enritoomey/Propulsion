@@ -47,4 +47,6 @@ Temporary Items
 # ======================
 .idea/*
 *.pyc
-*/*.pyc
+/*.pyc
+dist/*
+build/*
