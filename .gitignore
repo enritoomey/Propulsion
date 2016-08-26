@@ -48,5 +48,10 @@ Temporary Items
 .idea/*
 *.pyc
 \*.pyc
+/*.pyc
 dist/*
 build/*
+__pycache__/
+build/
+common/__pycache__/
+dist/

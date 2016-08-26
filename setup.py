@@ -2,11 +2,6 @@
 from distutils.core import setup
 import py2exe
 import os
-# import sys
-#
-# sys.path.append('./JOULE_BRAYTON')
-# sys.path.append('./SABATHE')
-# sys.path.append('./common')
 
 # We need to import the glob module to search for all files.
 import glob
