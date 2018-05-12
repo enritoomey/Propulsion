@@ -18,9 +18,9 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from excepciones import NumeroNegativoError,MayorAUnoError,TemperaturaIncompatibleError
 import numpy as np # Para las cuentas
-import Ciclo_JouleBrayton_V00 as Ciclo_JouleBrayton # contiene la funcion que hace las cuentas
+import JOULE_BRAYTON.Ciclo_JouleBrayton_V00 as Ciclo_JouleBrayton # contiene la funcion que hace las cuentas
 import common.PoderCalorifico as PoderCalorifico# Continene la funcion que calcula el poder calorifico
-import layout_cicloJouleBrayton # importo las clases creadas con Qt y pyside
+import JOULE_BRAYTON.layout_cicloJouleBrayton as layout_cicloJouleBrayton# importo las clases creadas con Qt y pyside
 import common.GUI_atmosfera_estandar as GUI_atmosfera_estandar
 from common.MatrixClass import MatrixDialog
 __appName__ = 'Ciclo Joule-Brayton'

@@ -1,6 +1,6 @@
 __author__ = 'Enriquito'
-import atmosfera_estandar
-import layout_atmosfera_estandar as layout
+import common.atmosfera_estandar as atmosfera_estandar
+import common.layout_atmosfera_estandar as layout
 from PySide.QtCore import *
 from PySide.QtGui import *
 
