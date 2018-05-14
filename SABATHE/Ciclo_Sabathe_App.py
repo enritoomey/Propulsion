@@ -9,18 +9,15 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 
 matplotlib.use('Qt4Agg')
+matplotlib.rcParams['backend.qt4'] = 'PySide'
 # Hay que agregarle la siguiente linea para que matplotlib use pyside. De esta forma los objetos FigureCanvas y Figure
-# compatibles con los Qwidget creados por Pyside!
-matplotlib.rcParams['backend.qt4']='PySide'
+# compatibles con los Qwidget creados por Pyside! Ademas, hay que agregarla antes de importar FigureCanvasQTAgg
+
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
 from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompatibleError, Var2IncompatibleError
-# En el metodo "CicloSabatheGUI" es el obtenido por pyside al procesar el archivo ".ui"
 import SABATHE.layout_CicloSabathe as CicloSabatheGUI
-# Importamos los modulos que tienen las funciones para el cálculo de los ciclos. La primera tiene la funció para el
-# cálculo de calor especifico asociado a la formula quimica del combustible, y el segundo el programa que resuelve el
-# ciclo.
 import common.PoderCalorifico as PoderCalorifico
 import SABATHE.ciclo_sabathe_calculos as ciclo_sabathe
 import common.GUI_atmosfera_estandar as GUI_atmosfera_estandar
@@ -36,8 +33,8 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         self.setWindowTitle(__appName__)
         self.setupUi(self)
         self.Q = []
-        #Defino las formulas quimicas para selecionar en formulas_comboBox
-        self.formulas = {"AvGas":{'c':7,'h':16,'o':0,'s':0.00},"Diesel":{'c':12,'h':21,'o':0,'s':0.00}}
+        self.formulas = {"AvGas": {'c': 7, 'h': 16, 'o': 0, 's': 0.00},
+                         "Diesel": {'c': 12, 'h': 21, 'o': 0, 's': 0.00}}
         # Utilizo las 'keys' de self.formulas para cargar los items en la combobox
         for key in self.formulas.keys():
             self.formula_comboBox.addItem(key)
@@ -45,12 +42,12 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         # Generamos dos figuras, cada una luego asociada a un canvas, que a su vez tiene como padre una de las pestañas
         # self.tab -> contiene la pestaña titulada "Diagrama P-S"
         # self.tab_2 -> contiene la pestaña titulada "Diagrama T-S"
-        self.fig1 = Figure(figsize=(4.8,3.4),dpi=72, facecolor=(1,1,1), edgecolor=(0,0,0))
+        self.fig1 = Figure(figsize=(4.8, 3.4), dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
         self.axes1 = self.fig1.add_subplot(111)
         self.axes1.set_ylabel('p')
         self.axes1.set_xlabel('v')
         self.axes1.set_title('Ciclo Sabathe')
-        self.fig2 = Figure(figsize=(4.8,3.4),dpi=72, facecolor=(1,1,1), edgecolor=(0,0,0))
+        self.fig2 = Figure(figsize=(4.8, 3.4), dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
         self.axes2 = self.fig2.add_subplot(111)
         self.axes2.set_ylabel('T')
         self.axes2.set_xlabel('S')
@@ -66,25 +63,26 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         self.R_aire = 287
         self.actualizarFormula()
 
-        #Cambio los lineInput de HVS y HVI a "ReadOnly"
+        # Cambio los lineInput de HVS y HVI a "ReadOnly"
         self.HVS_lineEdit.setReadOnly(True)
         self.HVI_lineEdit.setReadOnly(True)
 
-        #Seleccion de una formula en formula_comboBox
-        self.connect(self.formula_comboBox,SIGNAL("currentIndexChanged(int)"),self.selecionFormula)
-
+        # Seleccion de una formula en formula_comboBox
+        self.connect(self.formula_comboBox, SIGNAL("currentIndexChanged(int)"), self.selecionFormula)
 
         # Acciones de actualización de la formula quimica para el calculo de Q
-        self.connect(self.formulaC,SIGNAL("textEdited(const QString&)"),self.actualizarFormula)
-        self.connect(self.formulaH,SIGNAL("textEdited(const QString&)"),self.actualizarFormula)
-        self.connect(self.formulaO,SIGNAL("textEdited(const QString&)"),self.actualizarFormula)
-        self.connect(self.formulaS,SIGNAL("textEdited(const QString&)"),self.actualizarFormula)
-        self.connect(self.relacionMezcla,SIGNAL("valueChanged(double)"),self.actualizarFormula)
-        self.connect(self.calcular,SIGNAL("clicked()"),self.Calculos)
+        self.connect(self.formulaC, SIGNAL("textEdited(const QString&)"), self.actualizarFormula)
+        self.connect(self.formulaH, SIGNAL("textEdited(const QString&)"), self.actualizarFormula)
+        self.connect(self.formulaO, SIGNAL("textEdited(const QString&)"), self.actualizarFormula)
+        self.connect(self.formulaS, SIGNAL("textEdited(const QString&)"), self.actualizarFormula)
+        self.connect(self.relacionMezcla, SIGNAL("valueChanged(double)"), self.actualizarFormula)
+        self.connect(self.calcular, SIGNAL("clicked()"), self.Calculos)
         # Boton para mostrar matriz de resultados
-        self.connect(self.matrixButton,SIGNAL("clicked()"),self.displayMatrix)
-        #Boton para seleccionar P1 y T1 a partir de la altura:
-        self.connect(self.Altura_Button,SIGNAL("clicked()"),self.seleccionAltura)
+        self.connect(self.matrixButton, SIGNAL("clicked()"), self.displayMatrix)
+        # Boton para seleccionar P1 y T1 a partir de la altura:
+        self.connect(self.Altura_Button, SIGNAL("clicked()"), self.seleccionAltura)
+
+        self.atmosfera_estandar_dialog = AtmosferaEstandarDialog()
 
     def selecionFormula(self):
         formula = self.formula_comboBox.currentText()
@@ -96,27 +94,24 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
             self.actualizarFormula()
 
     def actualizarFormula(self):
-        try:
-            c = self.lecturadatos(self.formulaC, 'int')
-            h = self.lecturadatos(self.formulaH, 'int')
-            o = self.lecturadatos(self.formulaO, 'int')
-            s = self.lecturadatos(self.formulaS, 'float')
-        except: pass
-        else:
-            # si la formula ingresada coincide con alguna formula del comboBox
-            # poner el comboBox en esa formula.
-            indexName = 'Otra'
-            for key in self.formulas.keys():
-                if (self.formulas[key]['c'] == c) &  (self.formulas[key]['h'] == h) & (self.formulas[key]['o'] == o):
-                    indexName = key
-            index = self.formula_comboBox.findText(indexName)
-            self.formula_comboBox.setCurrentIndex(index)
+        c = self.lecturadatos(self.formulaC, 'int')
+        h = self.lecturadatos(self.formulaH, 'int')
+        o = self.lecturadatos(self.formulaO, 'int')
+        s = self.lecturadatos(self.formulaS, 'float')
+        # si la formula ingresada coincide con alguna formula del comboBox
+        # poner el comboBox en esa formula.
+        indexName = 'Otra'
+        for key in self.formulas.keys():
+            if (self.formulas[key]['c'] == c) & (self.formulas[key]['h'] == h) & (self.formulas[key]['o'] == o):
+                indexName = key
+        index = self.formula_comboBox.findText(indexName)
+        self.formula_comboBox.setCurrentIndex(index)
 
-            Fr = self.relacionMezcla.value()
-            HVS, HVI, self.Q, self.lambda_s = PoderCalorifico.PoderCalorifico(c,h,o,s,Fr)
-            self.HVS_lineEdit.setText('{:.1f}'.format(HVS))
-            self.HVI_lineEdit.setText('{:.1f}'.format(HVS))
-            self.calorQ.setText('{:.1f}'.format(self.Q))
+        Fr = self.relacionMezcla.value()
+        HVS, HVI, self.Q, self.lambda_s = PoderCalorifico.PoderCalorifico(c, h, o, s, Fr)
+        self.HVS_lineEdit.setText('{:.1f}'.format(HVS))
+        self.HVI_lineEdit.setText('{:.1f}'.format(HVS))
+        self.calorQ.setText('{:.1f}'.format(self.Q))
 
     def seleccionAltura(self):
         p1 = str(self.presion1.text())
@@ -142,8 +137,8 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
                 raise NumeroNegativoError
             return aux
         except (TypeError, ValueError, NumeroNegativoError):
-            QMessageBox.warning(self,"Error en los datos de entrada! ","Vuelva a ingresar los datos")
-            lineedit.selectAll()
+            QMessageBox.warning(self, "Error en los datos de entrada! ", "Vuelva a ingresar los datos")
+            lineedit.selezctAll()
             lineedit.setFocus()
             raise
 
@@ -186,10 +181,6 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
             self.datoExtra2.selectAll()
             self.datoExtra2.setFocus()
 
-
-
-
-
         else:
             self.plotCiclo(self.puntos)
 
@@ -199,7 +190,7 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
             self.presionMedia.setText(str(resultados[3]))
             self.rendimiento.setText(str(resultados[4]))
 
-    def plotCiclo(self,puntos):
+    def plotCiclo(self, puntos):
         presion = []
         temperatura = []
         densidad = []
@@ -212,26 +203,25 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
             volumen.append(punto[3])
             entropia.append(punto[4])
 
-        v1 = np.append(np.arange(volumen[1],volumen[0],(volumen[0]-volumen[1])/100),volumen[0])
-        v2 = np.append(np.arange(volumen[3],volumen[4],(volumen[4]-volumen[3])/100),volumen[4])
+        v1 = np.append(np.arange(volumen[1], volumen[0], (volumen[0]-volumen[1])/100), volumen[0])
+        v2 = np.append(np.arange(volumen[3], volumen[4], (volumen[4]-volumen[3])/100), volumen[4])
         self.axes1.clear()
-        self.axes1.plot(v1,presion[1]*volumen[1]**self.gamma_aire*(1/v1**self.gamma_aire),'r')
-        self.axes1.plot(volumen[1:4],presion[1:4],'r',(volumen[4],volumen[0]),(presion[4],presion[0]),'r')
-        self.axes1.plot(v2,presion[3]*volumen[3]**self.gamma_aire*(1/v2**self.gamma_aire),'r')
+        self.axes1.plot(v1, presion[1]*volumen[1]**self.gamma_aire*(1/v1**self.gamma_aire), 'r')
+        self.axes1.plot(volumen[1:4], presion[1:4], 'r', (volumen[4], volumen[0]), (presion[4], presion[0]), 'r')
+        self.axes1.plot(v2, presion[3]*volumen[3]**self.gamma_aire*(1/v2**self.gamma_aire), 'r')
         self.canvas1.draw()
 
-        S1 = np.append(np.arange(entropia[1],entropia[2],(entropia[2]-entropia[1])/100),entropia[2])
-        S2 = np.append(np.arange(entropia[2],entropia[3],(entropia[3]-entropia[2])/100),entropia[3])
-        S3 = np.append(np.arange(entropia[4],entropia[0],(entropia[0]-entropia[4])/100),entropia[0])
+        S1 = np.append(np.arange(entropia[1], entropia[2], (entropia[2]-entropia[1])/100), entropia[2])
+        S2 = np.append(np.arange(entropia[2], entropia[3], (entropia[3]-entropia[2])/100), entropia[3])
+        S3 = np.append(np.arange(entropia[4], entropia[0], (entropia[0]-entropia[4])/100), entropia[0])
 
         self.axes2.clear()
-        self.axes2.plot(S1,temperatura[1]*np.exp((self.gamma_aire-1)*(S1-entropia[1])/self.R_aire),'r')
-        self.axes2.plot(S2,temperatura[2]*np.exp((self.gamma_aire-1)*(S2-entropia[2])/self.R_aire/self.gamma_aire),'r')
-        self.axes2.plot(entropia[0:2],temperatura[0:2],'r',entropia[3::],temperatura[3::],'r')
-        self.axes2.plot(S3,temperatura[4]*np.exp((self.gamma_aire-1)*(S3-entropia[4])/self.R_aire),'r')
+        self.axes2.plot(S1, temperatura[1]*np.exp((self.gamma_aire-1)*(S1-entropia[1])/self.R_aire), 'r')
+        self.axes2.plot(S2, temperatura[2]*np.exp((self.gamma_aire-1)*(S2-entropia[2])/self.R_aire/self.gamma_aire), 'r')
+        self.axes2.plot(entropia[0:2], temperatura[0:2], 'r', entropia[3::], temperatura[3::], 'r')
+        self.axes2.plot(S3, temperatura[4]*np.exp((self.gamma_aire-1)*(S3-entropia[4])/self.R_aire), 'r')
         self.canvas2.draw()
 
     def displayMatrix(self):
         matriz = MatrixDialog(self.puntos)
         matriz.exec_()
-

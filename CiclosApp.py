@@ -1,5 +1,4 @@
 import sys
-import imp
 
 from PySide.QtCore import *
 from PySide.QtGui import *  # importo todas las funciones de pyside
@@ -13,6 +12,7 @@ __appName__ = 'Ciclos App'
 
 
 class CiclosAppDialog(QDialog, layout_CiclosApp.Ui_Dialog):
+
     def __init__(self, parent=None):
         super(CiclosAppDialog, self).__init__(parent)
         self.setWindowTitle(__appName__)
