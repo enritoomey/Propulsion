@@ -20,7 +20,7 @@ from excepciones import NumeroNegativoError, MayorAUnoError, TemperaturaIncompat
 import SABATHE.layout_CicloSabathe as CicloSabatheGUI
 import common.PoderCalorifico as PoderCalorifico
 import SABATHE.ciclo_sabathe_calculos as ciclo_sabathe
-import common.GUI_atmosfera_estandar as GUI_atmosfera_estandar
+from atmosfera_estandar.gui.GUI_atmosfera_estandar import AtmosferaEstandarDialog
 from common.MatrixClass import MatrixDialog
 
 __appName__ = 'Ciclo Sabathe'
@@ -114,17 +114,16 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         self.calorQ.setText('{:.1f}'.format(self.Q))
 
     def seleccionAltura(self):
-        p1 = str(self.presion1.text())
-        t1 = str(self.temperatura1.text())
-        dialogo = GUI_atmosfera_estandar.MainDialog(p1,t1)
-        if dialogo.exec_():
-            self.presion1.setText('{:.1f}'.format(dialogo.atmosfera['p']))
-            self.temperatura1.setText('{:.1f}'.format(dialogo.atmosfera['t']))
-
-# Genero ahora la función que va a realizar los calculos, es decir,
-    # que va a llamar la función del ciclo. A esta le agrego una subclase de
-    # Exception para capturar los valores de entrada negativos.
-    class NumeroNegativo(Exception): pass
+        units = 'SI'# TODO, in the future, make all up unit-compatible
+        p1 = float(self.presion1.text())
+        t1 = float(self.temperatura1.text())
+        self.atmosfera_estandar_dialog.atmosfera[units]['p'] = p1
+        self.atmosfera_estandar_dialog.write_lineEdits()
+        self.atmosfera_estandar_dialog.actualizar('presion')
+        self.atmosfera_estandar_dialog.actualizarT(t1)
+        if self.atmosfera_estandar_dialog.exec_():
+            self.presion1.setText('{:.1f}'.format(self.atmosfera_estandar_dialog.atmosfera[units]['p']))
+            self.temperatura1.setText('{:.1f}'.format(self.atmosfera_estandar_dialog.atmosfera[units]['t']))
 
     def lecturadatos(self, lineedit, type):
         try:

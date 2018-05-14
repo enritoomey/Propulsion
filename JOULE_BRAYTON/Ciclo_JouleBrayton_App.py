@@ -149,14 +149,18 @@ class JouleBraytonDialog(QDialog, layout_cicloJouleBrayton.Ui_Dialog):
             self.datoExtra_2.setReadOnly(False)
 
     def seleccionAltura(self):
-        p1 = str(self.presion1.text())
-        t1 = str(self.temperatura1.text())
-        dialogo = GUI_atmosfera_estandar.MainDialog(p1,t1)
-        if dialogo.exec_():
-            self.presion1.setText('{:.1f}'.format(dialogo.atmosfera['p']))
-            self.temperatura1.setText('{:.1f}'.format(dialogo.atmosfera['t']))
+        units = 'SI'# TODO, in the future, make all up unit-compatible
+        p1 = self.lecturadatos(self.presion1, 'float')
+        t1 = self.lecturadatos(self.temperatura1, 'float')
+        self.atmosfera_estandar_dialog.atmosfera[units]['p'] = p1
+        self.atmosfera_estandar_dialog.write_lineEdits()
+        self.atmosfera_estandar_dialog.actualizar('presion')
+        self.atmosfera_estandar_dialog.actualizarT(t1)
+        if self.atmosfera_estandar_dialog.exec_():
+            self.presion1.setText('{:.1f}'.format(self.atmosfera_estandar_dialog.atmosfera[units]['p']))
+            self.temperatura1.setText('{:.1f}'.format(self.atmosfera_estandar_dialog.atmosfera[units]['t']))
 
-    def lecturadatos(self,lineedit,type):
+    def lecturadatos(self, lineedit, type):
         try:
             aux = 0
             if type == 'int':
