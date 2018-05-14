@@ -1,0 +1,4 @@
+numpy
+matplotlib
+pyside
+-e git+ssh://git@github.com:enritoomey/atmosfera_estandar.git#egg=atmosfera_estandar
