@@ -42,12 +42,14 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         # Generamos dos figuras, cada una luego asociada a un canvas, que a su vez tiene como padre una de las pestañas
         # self.tab -> contiene la pestaña titulada "Diagrama P-S"
         # self.tab_2 -> contiene la pestaña titulada "Diagrama T-S"
-        self.fig1 = Figure(figsize=(4.8, 3.4), dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
+        self.fig1 = Figure(dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
+        self.fig1.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.25)
         self.axes1 = self.fig1.add_subplot(111)
         self.axes1.set_ylabel('p')
         self.axes1.set_xlabel('v')
         self.axes1.set_title('Ciclo Sabathe')
-        self.fig2 = Figure(figsize=(4.8, 3.4), dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
+        self.fig2 = Figure(dpi=72, facecolor=(1, 1, 1), edgecolor=(0, 0, 0))
+        self.fig2.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.25)
         self.axes2 = self.fig2.add_subplot(111)
         self.axes2.set_ylabel('T')
         self.axes2.set_xlabel('S')
@@ -83,6 +85,10 @@ class SabatheDialog(QDialog, CicloSabatheGUI.Ui_Dialog):
         self.connect(self.Altura_Button, SIGNAL("clicked()"), self.seleccionAltura)
 
         self.atmosfera_estandar_dialog = AtmosferaEstandarDialog()
+
+    def resizeEvent(self, event):
+        self.canvas1.setGeometry(self.PlotArea.rect())
+        self.canvas2.setGeometry(self.PlotArea.rect())
 
     def selecionFormula(self):
         formula = self.formula_comboBox.currentText()

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'CicloJouleBraytonGUI.ui'
+# Form implementation generated from reading ui file 'JOULE_BRAYTON/CicloJouleBraytonGUI.ui'
 #
-# Created: Sun May  1 00:37:20 2016
+# Created: Mon May 14 23:32:46 2018
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(751, 624)
+        Dialog.resize(751, 671)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -90,13 +90,13 @@ class Ui_Dialog(object):
         self.label_23 = QtGui.QLabel(self.formula_frame)
         self.label_23.setGeometry(QtCore.QRect(70, 0, 16, 21))
         self.label_23.setObjectName("label_23")
-        self.widget = QtGui.QWidget(self.formula_frame)
-        self.widget.setGeometry(QtCore.QRect(110, 0, 91, 29))
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_19 = QtGui.QHBoxLayout(self.widget)
+        self.layoutWidget = QtGui.QWidget(self.formula_frame)
+        self.layoutWidget.setGeometry(QtCore.QRect(110, 0, 91, 35))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.horizontalLayout_19 = QtGui.QHBoxLayout(self.layoutWidget)
         self.horizontalLayout_19.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_19.setObjectName("horizontalLayout_19")
-        self.formulaS = QtGui.QLineEdit(self.widget)
+        self.formulaS = QtGui.QLineEdit(self.layoutWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -104,7 +104,7 @@ class Ui_Dialog(object):
         self.formulaS.setSizePolicy(sizePolicy)
         self.formulaS.setObjectName("formulaS")
         self.horizontalLayout_19.addWidget(self.formulaS)
-        self.label_6 = QtGui.QLabel(self.widget)
+        self.label_6 = QtGui.QLabel(self.layoutWidget)
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_19.addWidget(self.label_6)
         self.verticalLayout_6.addWidget(self.formula_frame)
