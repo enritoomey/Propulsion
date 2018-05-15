@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>751</width>
-    <height>624</height>
+    <height>671</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -213,13 +213,13 @@
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;O&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>110</x>
              <y>0</y>
              <width>91</width>
-             <height>29</height>
+             <height>35</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -779,9 +779,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>DatosSalida</zorder>
-  <zorder>DatosEntrada</zorder>
-  <zorder>PlotArea</zorder>
  </widget>
  <tabstops>
   <tabstop>formulaC</tabstop>
