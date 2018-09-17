@@ -1,0 +1,8 @@
+Una vez que py2exe esta instalado, para crear el binario de un proyecto python, primero hay que setupear "setup.py"
+como se indica en: http://www.py2exe.org/index.cgi/Tutorial
+
+Cuando trate de ejecutarlo para este proyecto me saltó el siguiente error: error: [Errno 2] No such file or directory: 'libopenblas.UWVN3XTD2LSS7SFIFK6TIQ5GONFDBJKU.gfortran-win32.dll', que se soluciona copiando ese archivo de C:\Python27\Lib\site-packages\numpy\.libs a C:\Python27\DLLs, como se indica en: https://stackoverflow.com/questions/48728067/where-can-i-get-obscure-dll-so-py2exe-will-compile/48733540#48733540.
+
+Por otro lado, no encontré como incluir repos de github en los include de py2exe. No parece tomar la opcion "dependency_links". Lo solucioné copiando la carpeta atmosfera_estandar del proyecto homonimo en el home directory de Propulsion. Para ver que opciones si tiene py2exe: http://www.py2exe.org/index.cgi/ListOfOptions.
+
+Otra cosa, py2exe no genera un install wizard, pero hay herramientas para generar instaladores en windows, como: http://nsis.sourceforge.net/Main_Page
