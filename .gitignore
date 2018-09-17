@@ -54,4 +54,4 @@ build/*
 __pycache__/
 build/
 common/__pycache__/
-dist/
+CiclosApp/
