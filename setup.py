@@ -27,9 +27,16 @@ opts = {
                'excludes': ['_gtkagg', '_tkagg', '_agg2', '_cairo', '_cocoaagg',
                             '_fltkagg', '_gtk', '_gtkcairo', ],
                'dll_excludes': ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll', 'MSVCP90.dll',
-                                'libiomp5md.dll']
+                                'libiomp5md.dll'],
+               'compressed': True,
+               'dist_dir': "CiclosApp"
                }
 }
+
+install_requires = ['numpy', 'matplotlib', 'pyside', 'atmosfera_estandar']
+
+dependency_links = ['git+https://github.com/enritoomey/atmosfera_estandar.git#egg=atmosfera_estandar']
+
 # Changes made to the vesion that compiled in windows7
 #  - removed sip from py2exe:includes
 #  - MSVCP90.dll and libiomp5md.dll added to avoid compilation problems
@@ -45,4 +52,5 @@ data_files = [(r'mpl-data', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib
                   (r'mpl-data\fonts', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\*.*'))]
 
 #for console program use 'console = [{"script" : "scriptname.py"}]
-setup(windows=[{"script": "CiclosApp.py"}], options=opts,   data_files=data_files)
+setup(windows=[{"script": "CiclosApp.py"}], options=opts,   data_files=data_files, install_requires=install_requires,
+      dependency_links=dependency_links)
